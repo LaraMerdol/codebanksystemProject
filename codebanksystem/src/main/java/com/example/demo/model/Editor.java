@@ -11,6 +11,11 @@ public class Editor extends User{
         this.name = name;
         this.type = type;
     }
+    public Editor() {
+        super("--", "", "");
+        this.name = "";
+        this.type = "";
+    }
     public String getName() {
         return name;
     }

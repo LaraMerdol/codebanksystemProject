@@ -18,6 +18,15 @@ public class Company extends User {
         this.budget = budget;
         this.avgRate = avgRate;
     }
+
+    public Company( ){
+        super("user_id", "", "");
+        this.companyName = "";
+        this.workerCount = 0;
+        this.hiringStatus = 0;
+        this.budget = 0;
+        this.avgRate = 0;
+    }
     public String getCompanyName() {
         return companyName;
     }

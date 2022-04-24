@@ -31,6 +31,12 @@ public class User implements UserDetails{
         this.user_id = user_id;
     }
 
+    public User () {
+        this.email = "";
+        this.password = "";
+        this.user_id = "";
+    }
+
     // Function
     public String getUser_id() {
         return user_id;

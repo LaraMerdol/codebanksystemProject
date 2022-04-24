@@ -15,6 +15,11 @@ public class Coder extends User {
         this.fullname  = fullname;
         this.phoneString = phoneString;
     }
+    public Coder() {
+        super("--", "", "");
+        this.phoneString = "";
+        this.fullname = "";
+    }
     
     public String getPhoneString() {
         return phoneString;
