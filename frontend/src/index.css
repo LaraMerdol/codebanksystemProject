@@ -54,5 +54,12 @@ code {
 .form button:hover,.form button:active,.form button:focus {
   background: #5276b8;
 }
-.show{display: block;}
-.hide{display: none;}
+ .nav_right{
+   justify-content: end;
+   margin-right: 0;
+   font-size: large;
+ }
+ .bottom{
+  justify-content: space-between;
+  width: 100%;
+ }
