@@ -4,6 +4,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/codebanksystem/pom.xml" />
+        <option value="$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.3.6/spring-aop-5.3.6.pom" />
       </list>
     </option>
   </component>

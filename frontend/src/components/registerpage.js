@@ -4,11 +4,38 @@ import { Navbar, Nav, Container, NavbarBrand } from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
 export default function Register() {
   const [user, setUser] = useState(null);
+  const [id, setId] = useState("")
+  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("")
+  const [fullname, setFullname] = useState("")
+  const [phone, setPhone] = useState("")
+  const [workercount, setWorkercount] = useState("")
+  const [hiringStatus, setHiringStatus] = useState("")
+  const [budget, setBudget] = useState("")  
+
+
+  const axios = require('axios')
+
+  const AddCoder = async () => {
+        let url ="/addCoder?id="+id+"&password="+password+"&email="+email +"&phone="+phone +"&name=" + fullname
+        alert(url)
+        await axios.post(url).then(function (response) {
+          console.log(response.data);
+      })
+  }
+  const AddCompany = async () => {
+    let url ="/addCompany?id="+id+"&password="+password+"&email="+email  +"&name=" + fullname +"&workerCount=" + workercount +"&hiringStatus=" + hiringStatus +"&budget=" + budget+'0'
+    alert(url)
+    await axios.post(url).then(function (response) {
+      console.log(response.data);
+  })
+}    
   function setUserDiv() {
     switch (user) {
       case "first":
         return;
       case "coder":
+        
         return (
           <div>
             <form className="register-form">
@@ -18,6 +45,8 @@ export default function Register() {
                   type="id"
                   className="form-control"
                   placeholder="Enter User ID"
+                  value={id}
+                  onChange={(e) => setId(e.target.value)}
                 />
               </div>
               <div className="form-group ">
@@ -26,6 +55,8 @@ export default function Register() {
                   type="password"
                   className="form-control"
                   placeholder="Enter password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -34,24 +65,18 @@ export default function Register() {
                   type="email"
                   className="form-control"
                   placeholder="Enter Your Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="form-group">
                 <label>Full Name</label>
                 <input
-                  type="firstname"
+                  type="fullname"
                   className="form-control"
-                  placeholder="First Name"
-                />
-                <input
-                  type="middlename"
-                  className="form-control"
-                  placeholder="Middle Name"
-                />
-                <input
-                  type="lastname"
-                  className="form-control"
-                  placeholder="Last Name"
+                  placeholder="Full Name"
+                  value={fullname}
+                  onChange={(e) => setFullname(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -60,10 +85,12 @@ export default function Register() {
                   type="phone"
                   className="form-control"
                   placeholder="Enter Your Phone Number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
 
-              <button type="submit" className="btn btn-dark btn-lg btn-block">
+              <button type="submit" onClick={() => { AddCoder() }} className="btn btn-dark btn-lg btn-block">
                 Register
               </button>
             </form>
@@ -79,6 +106,8 @@ export default function Register() {
                   type="id"
                   className="form-control"
                   placeholder="Enter User ID"
+                  value={id}
+                  onChange={(e) => setId(e.target.value)}
                 />
               </div>
               <div className="form-group ">
@@ -87,6 +116,8 @@ export default function Register() {
                   type="password"
                   className="form-control"
                   placeholder="Enter password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -95,6 +126,8 @@ export default function Register() {
                   type="email"
                   className="form-control"
                   placeholder="Enter Your Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -103,9 +136,41 @@ export default function Register() {
                   type="name"
                   className="form-control"
                   placeholder="Enter Your Company Name"
+                  value={fullname}
+                  onChange={(e) => setFullname(e.target.value)}
+                />
+                </div>
+                <div className="form-group">
+                <label>Worker Count </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Enter Your Company Worker Number"
+                  value={workercount}
+                  onChange={(e) => setWorkercount(e.target.value)}
+                />
+                </div>
+                <div className="form-group">
+                <label>Hiring Status</label>
+                <input
+                  type="name"
+                  className="form-control"
+                  placeholder="Hiring status"
+                  value={hiringStatus}
+                  onChange={(e) => setHiringStatus(e.target.value)}
                 />
               </div>
-              <button type="submit" className="btn btn-dark btn-lg btn-block">
+              <div className="form-group">
+                <label>Budget</label>
+                <input
+                  type="name"
+                  className="form-control"
+                  placeholder="Budget"
+                  value={budget}
+                  onChange={(e) => setBudget(e.target.value)}
+                />
+              </div>
+              <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={() => { AddCompany() }}>
                 Register
               </button>
             </form>

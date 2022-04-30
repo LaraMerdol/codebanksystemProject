@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/codebanksystem/codebanksystem.iml" filepath="$PROJECT_DIR$/codebanksystem/codebanksystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/codebanksystem/demo.iml" filepath="$PROJECT_DIR$/codebanksystem/demo.iml" />
+      <module fileurl="file://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.3.6/spring-aop.iml" filepath="$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.3.6/spring-aop.iml" />
     </modules>
   </component>
 </project>
