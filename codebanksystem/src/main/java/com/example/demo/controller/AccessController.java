@@ -46,8 +46,8 @@ public class AccessController {
     public @ResponseBody Coder addCoder(@RequestParam String id, @RequestParam String password, @RequestParam String email, 
                             @RequestParam String phone, @RequestParam String name) {
         Coder coder = new Coder(id, password, email, phone, name);
-        // User user = new User(id, password, email);
-        // userRepository.save(user);
+        User user = new User(id, password, email);
+        userRepository.save(user);
         return coderRepository.save(coder);
     }
 
@@ -56,8 +56,8 @@ public class AccessController {
                                             @RequestParam String name, @RequestParam int workerCount, @RequestParam int hiringStatus,
                                             @RequestParam int budget, @RequestParam int avgRate) {
         Company company = new Company(id, password, email, name, workerCount, hiringStatus, budget, avgRate);
-        // User user = new User(id, password, email);
-        // userRepository.save(user);
+        User user = new User(id, password, email);
+        userRepository.save(user);
         System.out.print("Added Company");
         return companyRepository.save(company);
     }
