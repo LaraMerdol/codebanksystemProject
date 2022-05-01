@@ -8,6 +8,8 @@ import Profile from "./components/profilepage";
 import CretaeActivity from "./components/createactivitypage";
 import Discussion from "./components/discussionpage";
 import Search from "./components/searchpage";
+import CreateContest from "./components/createContest";
+import SolveChallenge from "./components/solveChallenge";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const rootElement = document.getElementById("root");
@@ -22,6 +24,8 @@ render(
       <Route path="createactivitypage" element={<CretaeActivity/>} />
       <Route path="searchpage" element={<Search/>} />
       <Route path="discussionpage" element={<Discussion/>} />
+      <Route path="createcontest" element={<CreateContest/>} />
+      <Route path="solvechallenge" element={<SolveChallenge/>} />
     </Routes>
   </BrowserRouter>,
   rootElement
