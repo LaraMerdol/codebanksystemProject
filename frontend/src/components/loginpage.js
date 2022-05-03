@@ -3,6 +3,7 @@ import { Navbar, Nav, Container, NavbarBrand } from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
 class Login extends Component {
   render() {
+    localStorage.setItem('userType', 'coder');
     return (
       <div className="login-page">
         <Navbar
