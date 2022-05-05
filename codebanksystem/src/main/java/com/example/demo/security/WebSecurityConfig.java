@@ -24,8 +24,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     public  void configAuthentication(AuthenticationManagerBuilder am) throws Exception {
-        am.jdbcAuthentication().dataSource(data).usersByUsernameQuery("select user_id, password, true from User where user_id=?")
-        .authoritiesByUsernameQuery("select 'ADMIN'");
+        am.jdbcAuthentication().dataSource(data).usersByUsernameQuery("select user_id, password, true from user where user_id=?")
+        .authoritiesByUsernameQuery("select ADMIN");
     ;
     }
 
@@ -38,9 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         //     .antMatchers("/", "/home").permitAll()
         //     .anyRequest().authenticated()
         //     .and()
-        //     .formLogin().loginPage("/login").permitAll()
+        //     .formLogin().permitAll()
         //     .and().logout().permitAll();      
-            // http.csrf().disable();     // temp testing setting  
     }
 
     @Bean
