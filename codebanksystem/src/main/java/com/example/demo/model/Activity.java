@@ -10,6 +10,7 @@ public class Activity {
     @Id
     String activity_id;
     @Column
+    @Id
     String category_id;
     @Column
     String description;

@@ -1,21 +1,47 @@
-import React, { Component } from "react";
-import {
-  Navbar,
-  Nav,
-  Container,
-  NavbarBrand,
-  Card,
-  Image,
-  Row,
-  CardGroup,
-} from "react-bootstrap";
+import React, { Component,useEffect, useState  } from "react";
+import axios from "axios";
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+import { useTable } from "react-table"
+import { Navbar, Nav, Container, NavbarBrand } from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
 import Footer from "./footer";
-class Discussion extends Component {
+import Table from "./table"
+export default class DiscussionPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      users: [],
+      loading: true,
+    };
+  }
+  async getUsersData() {
+    // const res = await axios.get("https://jsonplaceholder.typicode.com/users");
+    const data = [
+      {"id":"1","name":"How to Solve DP?"},
+
+    ]
+    this.setState({ loading: false, users: data });
+  }
+  componentDidMount() {
+    this.getUsersData();
+  }
+
   render() {
+
+    const columns = [
+      {
+        Header: "ID",
+        accessor: "id",
+      },
+      {
+        Header: "Name",
+        accessor: "name",
+        formatter: this.AddButtonToCell,
+      }
+    ];
     return (
       <div>
-        <h2>Welcome</h2>
         <Navbar
           collapseOnSelect
           fixed="top"
@@ -33,12 +59,11 @@ class Discussion extends Component {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        <br></br>
-
+        <Container className="align-items-center" style={{margin:"10%"}}>
+          <Table data={this.state.users}  />
+        </Container>
         <Footer></Footer>
       </div>
     );
   }
 }
-
-export default Discussion;

@@ -198,7 +198,7 @@ export default function Register() {
                 />
               </div>
               <div className="form-group">
-                <label>Company Name</label>
+                <label>Editor Name</label>
                 <input
                   type="name"
                   className="form-control"

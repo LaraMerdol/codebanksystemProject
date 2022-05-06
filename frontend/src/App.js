@@ -6,10 +6,11 @@ import Register from "./components/registerpage";
 import Main from "./components/mainpage";
 import Profile from "./components/profilepage";
 import CretaeActivity from "./components/createactivitypage";
-import Discussion from "./components/discussionpage";
+import DiscussionPage from "./components/discussionpage";
 import Search from "./components/searchpage";
 import CreateContest from "./components/createContest";
 import SolveChallenge from "./components/solveChallenge";
+import Discussion from "./components/discussion";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const rootElement = document.getElementById("root");
@@ -23,7 +24,8 @@ render(
       <Route path="profilepage" element={<Profile/>} />
       <Route path="createactivitypage" element={<CretaeActivity/>} />
       <Route path="searchpage" element={<Search/>} />
-      <Route path="discussionpage" element={<Discussion/>} />
+      <Route path="discussionpage" element={<DiscussionPage/>} />
+      <Route path="discussion" element={<Discussion/>} />
       <Route path="createcontest" element={<CreateContest/>} />
       <Route path="solvechallenge" element={<SolveChallenge/>} />
     </Routes>
