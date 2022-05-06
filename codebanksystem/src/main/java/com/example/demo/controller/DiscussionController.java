@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -64,5 +65,28 @@ public class DiscussionController {
             return "failed";
         disRepo.deleteById(discussion_id);
         return "successful";
+    }
+
+    @RequestMapping(path="/getDiscussions")
+    @ResponseBody
+    public List<Discussion> getDiscussions(@RequestParam String header) {
+        List<Discussion> discussions = disRepo.getDiscussions(header);
+        return discussions;
+    }
+
+    @RequestMapping(path="/getDiscussionsId")
+    @ResponseBody
+    public Discussion getDiscussion(@RequestParam int id) {
+        Optional<Discussion> discussions = disRepo.findById(id);
+        if (discussions.isEmpty())
+            return null;
+        return discussions.get();
+    }
+
+    @RequestMapping(path="/getReplies")
+    @ResponseBody
+    public List<Reply> getReplies(@RequestParam int id) {
+        List<Reply> replies = replyRepo.getRepliesByDiscussion(id);
+        return replies;
     }
 }

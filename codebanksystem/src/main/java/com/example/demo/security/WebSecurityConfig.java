@@ -24,36 +24,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     public  void configAuthentication(AuthenticationManagerBuilder am) throws Exception {
-        am.jdbcAuthentication().dataSource(data).usersByUsernameQuery("select user_id, password, true from User where user_id=?")
-        .authoritiesByUsernameQuery("select 'ADMIN'");
+        am.jdbcAuthentication().dataSource(data).usersByUsernameQuery("select user_id, password, true from user where user_id= ?")
+        .authoritiesByUsernameQuery("select user_id, role from user where user_id = ?");
     ;
     }
 
     @Override
     protected void configure (HttpSecurity http) throws Exception {
-        http.httpBasic().disable();
-        http.cors().and().csrf().disable();
+        // http.httpBasic().disable();
+        // http.cors().and().csrf().disable();
 
-        // http.authorizeRequests()
-        //     .antMatchers("/", "/home").permitAll()
-        //     .anyRequest().authenticated()
-        //     .and()
-        //     .formLogin().loginPage("/login").permitAll()
-        //     .and().logout().permitAll();      
-            // http.csrf().disable();     // temp testing setting  
+        http.authorizeRequests()
+            .antMatchers("/", "/home").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .formLogin().permitAll()
+            .and().logout().permitAll();      
     }
 
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                                .username("username")
-                                .password("password")
-                                .roles("ADMIN")
-                                .build();
-                                
-        return new InMemoryUserDetailsManager(user);
-    }
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/addEditor", "/addCompany", "/addCoder");
