@@ -23,12 +23,15 @@ public class User implements UserDetails{
     private String password;
     @Column
     private String email;
+    @Column
+    private String role;
 
     // Constructor
     public User (String user_id, String password, String email) {
         this.email = email;
         this.password = password;
         this.user_id = user_id;
+        role = "ADMIN";
     }
 
     public User () {
@@ -47,6 +50,16 @@ public class User implements UserDetails{
     public String getPassword() {
         return password;
     }
+
+    
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
