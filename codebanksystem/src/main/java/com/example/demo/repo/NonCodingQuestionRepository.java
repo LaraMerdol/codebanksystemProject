@@ -3,5 +3,5 @@ import com.example.demo.model.NonCodingQuestion;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface NonCodingQuestionRepository extends CrudRepository<NonCodingQuestion, String>{
+public interface NonCodingQuestionRepository extends CrudRepository <NonCodingQuestion, Integer>{
 }

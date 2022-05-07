@@ -3,7 +3,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Column;
-
+@Entity
 public class CoddingChallenge extends Activity{
     @Column
     String  level;

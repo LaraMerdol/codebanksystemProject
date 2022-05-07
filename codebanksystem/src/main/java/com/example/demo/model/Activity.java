@@ -8,7 +8,6 @@ public class Activity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int  activity_id;
     @JoinColumn
-    @Id
     @ManyToOne(cascade = CascadeType.REMOVE)
     private Category  category;
     @Column
