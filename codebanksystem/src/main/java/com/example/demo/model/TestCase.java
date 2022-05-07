@@ -3,13 +3,13 @@ package com.example.demo.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "TestCases")
 public class TestCase {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int  test_id;
     @Column
     private String test_code;
-    @JoinColumn
     @ManyToOne(cascade = CascadeType.REMOVE)
     private CoddingChallenge challenge;
     // Constructor
@@ -43,7 +43,7 @@ public class TestCase {
 
     @Override
     public String toString() {
-        return "Test_case [test_id=" + test_id + ", test_code=" + test_code+"]";
+        return "TestCase [test_id=" + test_id + ", test_code=" + test_code+"]";
     }
 
 }

@@ -1,9 +1,9 @@
 package com.example.demo.model;
+import javax.persistence.*;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Column;
+
 @Entity
+@Table(name = "NonCodingQuestions")
 public class NonCodingQuestion extends Activity{
     @Column
     String  question_text;
@@ -25,7 +25,7 @@ public class NonCodingQuestion extends Activity{
 
     @Override
     public String toString() {
-        return "Codding_language [question_text=" + question_text  + "]";
+        return "NonCodingQuestion[question_text=" + question_text  + "]";
     }
 }
 

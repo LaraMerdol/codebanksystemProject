@@ -63,14 +63,16 @@ public class ActivityController {
         System.out.print("Added CoddingChallenge");
         return categoryRepository.save(category);
     }
+
     @PostMapping(path="/addTestCase")
     @ResponseBody
-    public TestCase addTestCase( @RequestParam String test_code, @RequestParam int challenge_id) {
-        Optional<CoddingChallenge> challenge = coddingChallengeRepository.findById(challenge_id);
+    public TestCase addTestCase( @RequestParam String test_code, @RequestParam int activity_id) {
+        Optional<CoddingChallenge> challenge = coddingChallengeRepository.findById(activity_id);
         if (challenge.isEmpty())
             return null;
 
         return testCaseRepository.save(new TestCase( test_code,challenge.get()));
     }
+
 
 }

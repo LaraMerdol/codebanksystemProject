@@ -3,9 +3,11 @@ package com.example.demo.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Activities")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Activity {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private int  activity_id;
     @JoinColumn
     @ManyToOne(cascade = CascadeType.REMOVE)

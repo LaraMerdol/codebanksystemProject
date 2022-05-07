@@ -1,9 +1,9 @@
 package com.example.demo.model;
+import javax.persistence.*;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Column;
+
 @Entity
+@Table(name = "CoddingChallenges")
 public class CoddingChallenge extends Activity{
     @Column
     String  level;
@@ -34,8 +34,9 @@ public class CoddingChallenge extends Activity{
         this.codding_language = codding_language;
     }
 
+
     @Override
     public String toString() {
-        return "Codding_language [level=" + level + ", codding_language=" + codding_language + "]";
+        return "CoddingChallenge [level=" + level + ", codding_language=" + codding_language + "]";
     }
 }
