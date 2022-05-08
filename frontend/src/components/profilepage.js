@@ -20,6 +20,7 @@ class Profile extends Component {
     axios.get(`/coder/displayProfile?id=1`)
       .then(res => {
         const body = res.data;
+        alert(body)
         this.setState({ coder :body });
       })
   }

@@ -1,21 +1,79 @@
 package com.example.demo.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "Activities")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Activity {
-    @Column
     @Id
-    String activity_id;
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private int  activity_id;
+    @JoinColumn
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    private Category  category;
     @Column
-    String category_id;
+    private String description;
     @Column
-    String description;
+    private String status;
     @Column
-    String status; 
-    @Column
-    String duration;
+    private int duration;
 
+    // Constructor
+    public Activity() {
+        this.description = "";
+        this.status = "";
+        this.duration = 0;
+    }
+
+    public Activity (Category category, String description, String status, int duration) {
+        this.category = category;
+        this.description = description;
+        this.status = status;
+        this.duration = duration;
+    }
+
+    public int getActivity_id() {
+        return activity_id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Category [activity_id=" + activity_id + ", description=" + description + ", status=" + status + ", duration=" + duration +"]";
+    }
 }
+
+
