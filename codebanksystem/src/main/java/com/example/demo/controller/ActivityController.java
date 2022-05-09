@@ -3,9 +3,9 @@ import com.example.demo.model.*;
 import com.example.demo.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Random;
 
 import java.time.LocalDate;
@@ -43,7 +43,7 @@ public class ActivityController {
         if (category.isEmpty())
             return null;
         System.out.println("Come on!");
-        CoddingChallenge coddingChallenge = new CoddingChallenge(category.get(), description, status,duration, level,codding_language );
+        CoddingChallenge coddingChallenge = new CoddingChallenge(category.get(), description, status,duration, level,codding_language);
         Activity activity = new Activity(category.get(), description, status,duration);
         activityRepository.save(activity);
         System.out.print("Added CoddingChallenge");
@@ -99,9 +99,8 @@ public class ActivityController {
             return false;
         }
         System.out.print("Added Challenge To Contest");
-        contest.get().addCoddingChallenge(challenge.get());
+        contest.get().getCoddingChallenges().add(challenge.get());
         coddingContestRepository.save(contest.get());
-        coddingChallengeRepository.save(challenge.get());
         return true ;
     }
 
@@ -119,16 +118,36 @@ public class ActivityController {
     }
     @PostMapping(path="/passTest")
     @ResponseBody
-    public boolean passTest(@RequestParam int test_id, @RequestParam int solution_id) {
+    public Pass passTest(@RequestParam int test_id, @RequestParam int solution_id) {
         Optional<TestCase> test = testCaseRepository.findById(test_id);
         Optional<SolutionToChallenge> solution = solutionToChallengeRepository.findById(solution_id);
         if (test.isEmpty() || solution.isEmpty())
-            return false;
+            return null;
         Random random = new Random();
         Boolean isPass =random.nextBoolean();
         Pass pass = new Pass(test.get(),solution.get(),isPass);
-        passRepository.save(pass);
-        return isPass;
+        return passRepository.save(pass);
+    }
+
+
+    @GetMapping(path="/getActivity")
+    @ResponseBody
+    public String getActivity (@RequestParam int id) {
+        Optional<Activity> activity = activityRepository.getActivity(id);
+        if (activity.isEmpty())
+            return  null;
+
+        return activity.get().toString();
+    }
+    @GetMapping(path="/getAllActivity")
+    @ResponseBody
+    public String getAllActivity () {
+        List<Activity> activities = activityRepository.getAllActivity();
+        String listActivity = "";
+        for(int i=0;i<activities.size();i++){
+            listActivity=listActivity+activities.get(i).toString();
+        }
+        return listActivity;
     }
 
 
