@@ -3,7 +3,7 @@ import javax.persistence.*;
 import javax.persistence.Column;
 
 @Entity
-@Table(name = "NonCodingQuestions")
+@Table(name = "non_coding_questions")
 public class NonCodingQuestion extends Activity{
     @Column
     String  question_text;

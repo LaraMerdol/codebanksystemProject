@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -15,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class User implements UserDetails{
+public class User implements UserDetails, Serializable {
     @Column
     @Id
     private String user_id;
@@ -27,7 +28,7 @@ public class User implements UserDetails{
     private String role;
 
     // Constructor
-    public User (String user_id, String password, String email) {
+    public User (String user_id, String password, String email)  {
         this.email = email;
         this.password = password;
         this.user_id = user_id;

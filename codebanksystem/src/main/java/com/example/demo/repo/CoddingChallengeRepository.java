@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface CoddingChallengeRepository extends CrudRepository<CoddingChallenge, Integer> {
 
-    @Query(value = "Select * from CoddingChallenges where activity_id = :id", nativeQuery = true)
+    @Query(value = "Select * from codding_challenges where activity_id = :id", nativeQuery = true)
     Optional<CoddingChallenge> getCoddingChallenge(@Param("id") int id);
 
 }

@@ -72,8 +72,9 @@ public class Activity {
 
     @Override
     public String toString() {
-        return "Category [activity_id=" + activity_id + ", description=" + description + ", status=" + status + ", duration=" + duration +"]";
+        return "Activity [activity_id=" + activity_id + ", description=" + description + ", status=" + status + ", duration=" + duration +"]";
     }
+
 }
 
 
