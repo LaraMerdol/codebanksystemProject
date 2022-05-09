@@ -1,9 +1,10 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name = "TestCases")
+@Table(name = "test_cases")
 public class TestCase {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -12,6 +13,8 @@ public class TestCase {
     private String test_code;
     @ManyToOne(cascade = CascadeType.REMOVE)
     private CoddingChallenge challenge;
+    @OneToMany(mappedBy = "testcase")
+    Set<Pass> passSet;
     // Constructor
     public TestCase() {
         test_code = "";

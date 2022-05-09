@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure (HttpSecurity http) throws Exception {
          http.httpBasic().disable();
         http.cors().and().csrf().disable();
-/*
+
         http.authorizeRequests()
             .antMatchers("/", "/home").permitAll()
             .anyRequest().authenticated()
@@ -41,12 +41,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .formLogin().permitAll()
             .and().logout().permitAll();
 
- */
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/addEditor", "/addCompany", "/addCoder");
+        web.ignoring().antMatchers("/*");
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
