@@ -2,19 +2,25 @@ package com.example.demo.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User implements UserDetails{
     @Column
     @Id
@@ -38,15 +44,17 @@ public class User implements UserDetails{
         this.email = "";
         this.password = "";
         this.user_id = "";
-    }
+    }    
 
     // Function
     public String getUser_id() {
         return user_id;
     }
+
     public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
+
     public String getPassword() {
         return password;
     }
