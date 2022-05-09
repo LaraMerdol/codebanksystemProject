@@ -149,6 +149,35 @@ public class ActivityController {
         }
         return listActivity;
     }
-
+    @GetMapping(path="/getActivityForCategory")
+    @ResponseBody
+    public String getActivityForCategory (@RequestParam String name) {
+        List<Activity> activities = activityRepository.getCategoryActivity(name);
+        String listActivity = "";
+        for(int i=0;i<activities.size();i++){
+            listActivity=listActivity+activities.get(i).toString();
+        }
+        return listActivity;
+    }
+    @GetMapping(path="/getChallengesForCategory")
+    @ResponseBody
+    public String getChallengesForCategory (@RequestParam String name) {
+        List<CoddingChallenge> activities = coddingChallengeRepository.getCategoryActivity(name);
+        String listActivity = "";
+        for(int i=0;i<activities.size();i++){
+            listActivity=listActivity+activities.get(i).toString();
+        }
+        return listActivity;
+    }
+    @GetMapping(path="/getNonCodingsForCategory")
+    @ResponseBody
+    public String getNonCodingsForCategory (@RequestParam String name) {
+        List<NonCodingQuestion> activities = nonCodingQuestionRepository.getCategoryActivity(name);
+        String listActivity = "";
+        for(int i=0;i<activities.size();i++){
+            listActivity=listActivity+activities.get(i).toString();
+        }
+        return listActivity;
+    }
 
 }
