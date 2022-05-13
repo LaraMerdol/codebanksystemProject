@@ -1,7 +1,6 @@
 package com.example.demo.model;
         import com.fasterxml.jackson.annotation.JsonFormat;
 
-        import java.io.Serializable;
         import java.util.*;
         import javax.persistence.*;
         import javax.persistence.Column;
@@ -12,7 +11,6 @@ package com.example.demo.model;
 public class CoddingContest {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.TABLE)
     private int  contest_id;
     @Column
     private String name;
@@ -24,31 +22,23 @@ public class CoddingContest {
     @Column
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate endDate;
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "contest_challenges",
-            joinColumns = {
-                    @JoinColumn(name = "contest_id", referencedColumnName = "contest_id")},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "activity_id", referencedColumnName = "activity_id")})
-    private Set<CoddingChallenge> coddingChallenges;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<CoddingChallenge> challenges = new ArrayList<>();
 
 
     // Constructor
     public CoddingContest() {
         this.name = "";
         this.duration = 0;
-        coddingChallenges = new HashSet<>();
+
     }
 
-    public CoddingContest(String name, int duration, LocalDate startDate, LocalDate endDate) {
+    public CoddingContest(int contest_id, String name, int duration, LocalDate startDate, LocalDate endDate) {
         this.name = name;
+        this.contest_id =contest_id;
         this.duration = duration;
         this.startDate = startDate;
         this.endDate = endDate;
-        coddingChallenges = new HashSet<>();
     }
 
     public int getContest_id() {
@@ -74,14 +64,9 @@ public class CoddingContest {
     public void setStartDate (LocalDate startDate) {this.startDate= startDate;}
     public LocalDate getEndDate () {return endDate;}
     public void setEndDate (LocalDate endDate) {this.endDate= endDate;}
-    public Set<CoddingChallenge> getCoddingChallenges() {return coddingChallenges;}
-    public void setCoddingChallenges(Set<CoddingChallenge> coddingChallenges) {this.coddingChallenges = coddingChallenges;}
-    public void addCoddingChallenge (CoddingChallenge challenge){
-        this.getCoddingChallenges().add(challenge);
-        challenge.getCoddingContests().add(this);
+    public List<CoddingChallenge> getCoddingChallenges() {return challenges;}
+    public void setCoddingChallenges(List<CoddingChallenge> coddingChallenges) {this.challenges = coddingChallenges;}
 
-
-    }
     @Override
     public String toString() {
         return "CoddingContest [contest_id=" + contest_id + ", name=" + name  + ", duration=" + duration +", startDate=" + endDate + ", startDate=" + endDate+ "]";

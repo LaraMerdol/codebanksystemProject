@@ -1,45 +1,28 @@
 import React, { Component,useEffect, useState  } from "react";
 import axios from "axios";
 import ReactTable from "react-table";
+import { Link } from 'react-router-dom'
 import "react-table/react-table.css";
 import { useTable } from "react-table"
-import { Navbar, Nav, Container, NavbarBrand } from "react-bootstrap";
+import { Navbar, Nav, Container, NavbarBrand, Button} from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
 import Footer from "./footer";
-import Table from "./table"
+import TableDiscussion from "./tableDiscussion"
 export default class DiscussionPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: [],
-      loading: true,
-    };
-  }
-  async getUsersData() {
-    // const res = await axios.get("https://jsonplaceholder.typicode.com/users");
-    const data = [
-      {"id":"1","name":"How to Solve DP?"},
 
-    ]
-    this.setState({ loading: false, users: data });
+  state = {
+    persons: []
   }
+
   componentDidMount() {
-    this.getUsersData();
+    axios.get("/getDiscussions?header=All")
+      .then(res => {
+        const persons = res.data;
+        this.setState({ persons });
+      })
   }
-
   render() {
 
-    const columns = [
-      {
-        Header: "ID",
-        accessor: "id",
-      },
-      {
-        Header: "Name",
-        accessor: "name",
-        formatter: this.AddButtonToCell,
-      }
-    ];
     return (
       <div>
         <Navbar
@@ -60,9 +43,11 @@ export default class DiscussionPage extends Component {
           </Container>
         </Navbar>
         <Container className="align-items-center" style={{margin:"10%"}}>
-          <Table data={this.state.users}  />
-        </Container>
+        <TableDiscussion data={this.state.persons}  />
+        
         <Footer></Footer>
+        <Link align="center" to={'/createDiscussion'}><button   class="btn btn-primary btn-md"> Create New Discussion </button></Link>
+        </Container>
       </div>
     );
   }

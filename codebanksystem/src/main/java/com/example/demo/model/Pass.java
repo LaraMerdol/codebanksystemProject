@@ -56,9 +56,12 @@ public class Pass {
 
     @Override
     public String toString() {
-        return "Pass{" +
-                "pass_id=" + pass_id +
-                ", pass=" + pass +
-                '}';
+        return "{" +
+                "  \"test_id\": \"" + testcase.getTest_id() + "\"," +
+                "  \"solution_id\": \"" + solution.getSolution_id() + "\"," +
+                "  \"coder_name\": \"" + solution.getCoder().getFullname() + "\"," +
+                "  \"challenge_id\": \"" + solution.getChallenge().getActivity_id()+ "\"," +
+                "  \"pass\": \"" + this.pass+ "\"" +
+                "}";
     }
 }

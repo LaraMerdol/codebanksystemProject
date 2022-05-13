@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, Container, NavbarBrand } from 'react-bootstrap';
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
+import photo from './mainphoto.jpeg';
 class Welcome extends Component {
   render() {
     return (
@@ -18,6 +19,19 @@ class Welcome extends Component {
           </Navbar.Collapse>
           </Container>
           </Navbar>
+          <br></br>
+          <h1 >CodeBank</h1>
+          <body >
+            <h2>Welcome to CodeBank</h2>
+            <p> CodeBank is created to facilitate programming practice,</p>
+
+            <p>contests and job interviews. CodeBank allows users tp</p>
+            <p>improve their programming skills by practicing programming</p>
+            <p> and system design questions.</p>
+            <div>
+              <img src={photo}/>
+            </div>
+          </body>
         </div>
     );
   }

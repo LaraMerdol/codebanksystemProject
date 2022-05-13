@@ -16,7 +16,7 @@ public class Reply {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int reply_id;
     @ManyToOne
-    @PrimaryKeyJoinColumn(name="d_id", referencedColumnName="discussion_id")
+    @PrimaryKeyJoinColumn(name="discussion_id", referencedColumnName="discussion_id")
     private Discussion dis;
     @Column
     private String reply_text;
@@ -64,6 +64,11 @@ public class Reply {
 
     @Override
     public String toString() {
-        return "Reply [discussion_id=" + dis + ", reply_id=" + reply_id + ", reply_text=" + reply_text + "]";
+
+        return "{" +
+                "  \"discussion_id\": \"" + dis.getDiscussion_id() + "\"," +
+                "  \"reply_text\": \"" + reply_text + "\"," +
+                "  \"user_id\": \"" + creator.getUser_id() + "\"" +
+                "}";
     }
 }

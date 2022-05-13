@@ -1,9 +1,12 @@
 package com.example.demo.model;
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "codding_challenges")
@@ -12,11 +15,10 @@ public class CoddingChallenge extends Activity{
     String  level;
     @Column
     String codding_language;
-    @ManyToMany(mappedBy = "coddingChallenges")
-    private Set<CoddingContest> coddingContests;
 
-    public CoddingChallenge(Category category, String description, String status, int duration, String level, String codding_language ) {
-        super(category, description, status,duration);
+
+    public CoddingChallenge(int activity_id, Category category, String description, String status, int duration, String level, String codding_language) {
+        super(activity_id,category, description, status,duration);
         this.level  = level;
         this.codding_language = codding_language;
     }
@@ -42,15 +44,15 @@ public class CoddingChallenge extends Activity{
 
     @Override
     public String toString() {
-        return "CoddingChallenge [level=" + level + ", codding_language=" + codding_language + "]";
+               return "{"+ "\"activity_id\": \""+super.getActivity_id()+"\"," +
+                "  \"category\": \""+super.getCategory().getName()+"\"," +
+                "  \"description\": \""+super.getDescription()+"\"," +
+                "  \"status\": \""+super.getStatus()+"\"," +
+                "  \"duration\": \""+super.getDuration()+"\"," +
+                "  \"level\": \""+level+"\"," +
+                "  \"codding_language\": \""+codding_language+"\"" +
+                "}";
     }
 
 
-
-    public void setCoddingContests(Set<CoddingContest> coddingContests) {
-        this.coddingContests = coddingContests;
-    }
-    public Set<CoddingContest>  getCoddingContests() {
-        return this.coddingContests;
-    }
 }
