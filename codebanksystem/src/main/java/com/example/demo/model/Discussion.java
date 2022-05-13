@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Discussion {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int discussion_id;
     @Column
     private String header;
@@ -27,7 +26,8 @@ public class Discussion {
         
     }
 
-    public Discussion(String header, String text, User user) {
+    public Discussion(int discussion_id, String header, String text, User user) {
+        this.discussion_id = discussion_id;
         this.header = header;
         this.text = text;
         this.creator = user;
@@ -35,6 +35,9 @@ public class Discussion {
 
     public int getDiscussion_id() {
         return discussion_id;
+    }
+    public void setDiscussion_id(int discussion_id) {
+        this.discussion_id = discussion_id;
     }
     
     public String getHeader() {
@@ -65,6 +68,11 @@ public class Discussion {
 
     @Override
     public String toString() {
-        return "Discussion [discussion_id=" + discussion_id + ", header=" + header + ", text=" + text + "]";
-    }  
+        return "{" +
+                "  \"discussion_id\": \"" + discussion_id + "\"," +
+                "  \"header\": \"" + header + "\"," +
+                "  \"user_id\": \"" + creator.getUser_id() + "\"," +
+                "  \"text\": \"" + text + "\"" +
+                "}";
+    }
 }

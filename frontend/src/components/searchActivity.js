@@ -19,7 +19,8 @@ import { FormSelect } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import TableNonCodding from "./tableNonCodding";
 import Button from "react-bootstrap/Button";
-export default function Search() {
+export default function SearchActivity() {
+
   const [filter, setFilter] = useState("All");
   const [activities, setActivities] = useState(null);
   const [noncoding, setNonCodding] = useState(null);
@@ -29,24 +30,24 @@ export default function Search() {
   const [isLoading2, setLoading2] = useState(true);
   const [isLoading3, setLoading3] = useState(true);
 
-  let textInput = React.createRef();
-  let searchInput = React.createRef();
-  function handleClick() {
-    setLoading(true);
-    setLoading2(true);
-    setLoading3(true);
-    setFilter(textInput.current.value);
-    setSearch(searchInput.current.value);
-  }
-  function setSearchDiv() {
+
+    let textInput = React.createRef();
+    let searchInput = React.createRef();
+    function handleClick() {
+      setLoading(true)
+      setLoading2(true)
+      setLoading3(true)
+      setFilter(textInput.current.value);
+      setSearch(searchInput.current.value);
+
+    }
+    function setSearchDiv() {
     switch (search) {
       case "All":
-        axios
-          .get("/getActivityForCategory?name=" + filter)
-          .then(function (response) {
-            setActivities(response.data);
-            setLoading(false);
-          });
+         axios.get("/getActivityForCategory?name="+filter).then(function (response) {
+          setActivities(response.data);
+          setLoading(false);
+        });
         if (isLoading) {
           return <div className="App">Loading...</div>;
         }
@@ -58,8 +59,8 @@ export default function Search() {
         );
 
       case "Challenge":
-        axios
-          .get("/getChallengesForCategory?name=" + filter)
+         axios
+          .get("/getChallengesForCategory?name="+filter)
           .then(function (response) {
             setChallenges(response.data);
             setLoading2(false);
@@ -73,8 +74,8 @@ export default function Search() {
           </div>
         );
       case "NonCoding":
-        axios
-          .get("/getNonCodingsForCategory?name=" + filter)
+         axios
+          .get("/getNonCodingsForCategory?name="+filter)
           .then(function (response) {
             setNonCodding(response.data);
             setLoading3(false);
@@ -108,29 +109,26 @@ export default function Search() {
       <Container className="align-items-center" style={{ margin: "10%" }}>
         <div className="form-group">
           <InputGroup className="mb-3">
-            <Button
-              variant="outline-secondary"
-              id="button-addon1"
-              onClick={handleClick}
-            >
+            <Button variant="outline-secondary" id="button-addon1" onClick={handleClick} >
               Filter
             </Button>
             <FormControl
               aria-label="Example text with button addon"
               aria-describedby="basic-addon1"
-              ref={textInput}
+              ref={textInput} 
+
             />
           </InputGroup>
         </div>
         <br></br>
         <Form.Select
           size="lg"
-          ref={searchInput}
+          ref={searchInput} 
           onClick={(event) => {
             setSearch(event.target.value);
           }}
         >
-          <option value="All">Search All</option>
+          <option value="All" >Search All</option>
           <option value="Challenge">Search Codding Challenge</option>
           <option value="NonCoding">Search Non Coding Question</option>
         </Form.Select>

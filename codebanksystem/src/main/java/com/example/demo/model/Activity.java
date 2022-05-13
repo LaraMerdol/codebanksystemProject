@@ -7,12 +7,11 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Activity {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
     private int  activity_id;
     @JoinColumn
     @ManyToOne(cascade = CascadeType.REMOVE)
     private Category  category;
-    @Column
+    @Column(name="description", length=512)
     private String description;
     @Column
     private String status;
@@ -26,7 +25,8 @@ public class Activity {
         this.duration = 0;
     }
 
-    public Activity (Category category, String description, String status, int duration) {
+    public Activity (int activity_id, Category category, String description, String status, int duration) {
+        this.activity_id=activity_id;
         this.category = category;
         this.description = description;
         this.status = status;
@@ -35,6 +35,9 @@ public class Activity {
 
     public int getActivity_id() {
         return activity_id;
+    }
+    public void setActivity_id(int activity_id) {
+        this.activity_id=activity_id;
     }
 
     public String getDescription() {
@@ -72,7 +75,13 @@ public class Activity {
 
     @Override
     public String toString() {
-        return "Activity [activity_id=" + activity_id + ", description=" + description + ", status=" + status + ", duration=" + duration +"]";
+        return "{" +
+                "  \"activity_id\": \""+activity_id+"\"," +
+                "  \"category\": \""+category.getName()+"\"," +
+                "  \"description\": \""+description+"\"," +
+                "  \"status\": \""+status+"\"," +
+                "  \"duration\": \""+duration+"\"" +
+                "}";
     }
 
 }

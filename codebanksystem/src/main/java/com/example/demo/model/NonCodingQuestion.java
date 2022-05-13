@@ -7,8 +7,8 @@ import javax.persistence.Column;
 public class NonCodingQuestion extends Activity{
     @Column
     String  question_text;
-    public NonCodingQuestion(Category category, String description, String status, int duration, String question_text) {
-        super(category, description, status,duration);
+    public NonCodingQuestion(int activity_id , Category category, String description, String status, int duration, String question_text) {
+        super(activity_id,category, description, status,duration);
         this.question_text  = question_text;
     }
 
@@ -25,7 +25,13 @@ public class NonCodingQuestion extends Activity{
 
     @Override
     public String toString() {
-        return "NonCodingQuestion[question_text=" + question_text  + "]";
+        return "{"+ "\"activity_id\": \""+super.getActivity_id()+"\"," +
+                "  \"category\": \""+super.getCategory().getName()+"\"," +
+                "  \"description\": \""+super.getDescription()+"\"," +
+                "  \"status\": \""+super.getStatus()+"\"," +
+                "  \"duration\": \""+super.getDuration()+"\"," +
+                "  \"question_text\": \""+question_text+"\"" +
+                "}";
     }
 }
 

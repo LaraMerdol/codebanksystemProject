@@ -18,39 +18,19 @@ import {
 import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
 import Footer from "./footer";
 
-export default function SolveChallenge() {
-  const [code, setCode] = React.useState(
-    `function add(a, b) {\n  return a + b;\n}`
-  );
+export default function SolveNonCoddingQuestion() {
   const [solution_id, setSolutionId] = useState("");
+  const [solution, setSolution] = useState("");
   const axios = require("axios");
   const activity_id = localStorage.getItem("activity_id");
-  const [language, setLanguage] = useState("");
   const activity_description = localStorage.getItem("activity_description");
   const activity_duration = localStorage.getItem("activity_duration");
-
+  const activity_text = localStorage.getItem("activity_text");
   const AddSolution = async () => {
-    let url =
-      "/answerChallenge?solution_id=" +
-      parseInt(solution_id) +
-      "&activity_id=" +
-      parseInt(activity_id) +
-      "&solution_text=" +
-      code +
-      "&solution_language=" +
-      language +
-      "&user_id=" +
-      "5";
-    let url2 =
-      "/passAllTest?activity_id=" +
-      parseInt(activity_id) +
-      "&solution_id=" +
-      parseInt(solution_id);
-    alert(url);
-    alert(url2);
-
-    axios.all([await axios.post(url), axios.post(url2)]);
+    let url ="/answerNonCoding?solution_id="+parseInt(solution_id)+"&activity_id="+parseInt(activity_id)+"&solution_text="+solution+"&user_id=5"
+    axios.post(url);
   };
+  
   return (
     <div>
       <h2>Welcome</h2>
@@ -72,11 +52,14 @@ export default function SolveChallenge() {
             <Card.Body>
               <Card.Title>Activity Id : {activity_id}</Card.Title>
               <Card.Subtitle>Duration: {activity_duration}</Card.Subtitle>
-              Description: {activity_description}
+              <br></br>
+              <Card.Subtitle>{activity_description}</Card.Subtitle>
+              <br></br>
+              {activity_text}
             </Card.Body>
             <Link
               type="button"
-              to="/coderResult"
+              to="/nonCoddingResults"
               class="btn btn-primary btn-md"
               style={{ margin: "10px" }}
             >
@@ -86,21 +69,13 @@ export default function SolveChallenge() {
         </MDBCol>
 
         <MDBCol md="6" className="col-example">
-          <label htmlFor="defaultFormContactSubjectEx" className="grey-text">
-            Codding Language
-          </label>
-          <FormSelect
-            id="language"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-          >
-            <option>C++</option>
-            <option>Java</option>
-            <option>Python</option>
-            <option>C#</option>
-          </FormSelect>
           <br />
-          <label htmlFor="defaultFormContactNameEx" className="grey-text">
+
+          <Card bg="light" style={{ width: "40rem", margin: "30px" }}>
+          
+            <Card.Body>
+            <Card.Title>Answer</Card.Title>
+            <label htmlFor="defaultFormContactNameEx" className="grey-text">
             Solution ID
           </label>
           <input
@@ -110,31 +85,16 @@ export default function SolveChallenge() {
             className="form-control"
             onChange={(e) => setSolutionId(e.target.value)}
           />
-          <Card bg="light" style={{ width: "40rem", margin: "30px" }}>
-            <Card.Body>
-              <Card.Title>Answer</Card.Title>
-              <CodeEditor
-                value={code}
-                language="java"
-                placeholder="Please enter Java code."
-                onChange={(evn) => setCode(evn.target.value)}
-                padding={15}
-                style={{
-                  fontSize: 12,
-                  backgroundColor: "#000",
-                  height: "65vh",
-                  fontFamily:
-                    "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
-                }}
-              />
+                <div class="form-group">
+                  <label for="comment">Comment:</label>
+                  <textarea
+                    class="form-control"
+                    rows="5"
+                    id="comment"
+                    onChange={(e) => setSolution(e.target.value)}
+                  ></textarea>
+                </div>
               <div class="text-right">
-                <button
-                  type="button"
-                  class="btn btn-primary btn-md"
-                  style={{ margin: "10px" }}
-                >
-                  Run
-                </button>
                 <button
                   type="button"
                   class="btn btn-success btn-md"

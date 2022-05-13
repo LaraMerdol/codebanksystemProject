@@ -1,8 +1,6 @@
 package com.example.demo.model;
         import com.fasterxml.jackson.annotation.JsonFormat;
-        import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-        import java.io.Serializable;
         import java.util.*;
         import javax.persistence.*;
         import javax.persistence.Column;
@@ -13,7 +11,6 @@ package com.example.demo.model;
 public class CoddingContest {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int  contest_id;
     @Column
     private String name;
@@ -36,8 +33,9 @@ public class CoddingContest {
 
     }
 
-    public CoddingContest(String name, int duration, LocalDate startDate, LocalDate endDate) {
+    public CoddingContest(int contest_id, String name, int duration, LocalDate startDate, LocalDate endDate) {
         this.name = name;
+        this.contest_id =contest_id;
         this.duration = duration;
         this.startDate = startDate;
         this.endDate = endDate;

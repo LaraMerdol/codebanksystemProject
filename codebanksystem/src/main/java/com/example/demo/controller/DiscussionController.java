@@ -27,13 +27,18 @@ public class DiscussionController {
     private UserRepository userRepo;
 
     @PostMapping(path="/createDiscussion")
-    public @ResponseBody Discussion createDiscussion( @RequestParam String header, @RequestParam String text, @RequestParam String user_id) {
-        System.out.println("Come on!");
-        Optional<User> user = userRepo.findById(user_id);
-        if (user.isEmpty())
-            return null;
-        System.out.println("Come on!");
-        return disRepo.save(new Discussion(header, text, user.get()));
+    public @ResponseBody Discussion createDiscussion( @RequestParam int discussion_id, @RequestParam String header, @RequestParam String text, @RequestParam String user_id) {
+        Optional<Discussion> discussion = disRepo.findById(discussion_id);
+        if( discussion.isEmpty()){
+            System.out.println("Come on!");
+            Optional<User> user = userRepo.findById(user_id);
+            if (user.isEmpty()){
+                return null;
+            }
+            System.out.println("Come on!");
+            return disRepo.save(new Discussion(discussion_id,header, text, user.get()));
+        }
+        return discussion.get();
     }
 
     @PostMapping(path="/createReply")
@@ -69,9 +74,21 @@ public class DiscussionController {
 
     @RequestMapping(path="/getDiscussions")
     @ResponseBody
-    public List<Discussion> getDiscussions(@RequestParam String header) {
+    public String getDiscussions(@RequestParam String header) {
+        if(header.equals("All")){
+            List<Discussion> discussions = disRepo.getAll();
+            String listDiscussion = "["+discussions.get(0).toString();
+            for(int i=1;i<discussions.size();i++){
+                listDiscussion=listDiscussion+","+discussions.get(i).toString();
+            }
+            return listDiscussion + "]";
+        }
         List<Discussion> discussions = disRepo.getDiscussions(header);
-        return discussions;
+        String listDiscussion = "["+discussions.get(0).toString();
+        for(int i=1;i<discussions.size();i++){
+            listDiscussion=listDiscussion+","+discussions.get(i).toString();
+        }
+        return listDiscussion + "]";
     }
 
     @RequestMapping(path="/getDiscussionsId")
@@ -85,8 +102,20 @@ public class DiscussionController {
 
     @RequestMapping(path="/getReplies")
     @ResponseBody
-    public List<Reply> getReplies(@RequestParam int id) {
-        List<Reply> replies = replyRepo.getRepliesByDiscussion(id);
-        return replies;
+    public String getReplies(@RequestParam int id) {
+        List<Reply> discussions = replyRepo.getRepliesByDiscussion(id);
+        if(discussions.size()>0){
+            String listDiscussion = "["+discussions.get(0).toString();
+            for(int i=1;i<discussions.size();i++){
+                listDiscussion=listDiscussion+","+discussions.get(i).toString();
+            }
+            return listDiscussion + "]";
+        }
+        return
+                "[{" +
+                        "  \"discussion_id\": \"" +3+ "\"," +
+                        "  \"reply_text\": \"" + "Sory there is no messeges" + "\"," +
+                        "  \"user_id\": \"" +"ADMIN"+ "\"" +
+                        "}]";
     }
 }

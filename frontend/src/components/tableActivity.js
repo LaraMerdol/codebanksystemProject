@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-export default function Table(props) {
+export default function TableActivity(props) {
     return (
         <div>
         <table class="table">
@@ -10,9 +10,12 @@ export default function Table(props) {
             <thead>
 
                 <tr>
-                    <th>Discussion Id</th>
-                    <th>Discussion Header</th>
-                    <th>Go to Discussion </th>
+                    <th>Activity Id</th>
+                    <th>Activity Category </th>
+                    <th>Activity Description</th>
+                    <th>Activity Duration </th>
+                    <th>Activity Status </th>
+
 
                 </tr>
             </thead>
@@ -21,8 +24,11 @@ export default function Table(props) {
                 {
                 props.data.map(row =>(
                     <tr>
-                        <td>{row.id}</td>
-                        <td>{row.name}</td>
+                        <td>{row.activity_id}</td>
+                        <td>{row.category}</td>
+                        <td>{row.description}</td>
+                        <td>{row.status}</td>
+                        <td>{row.duration}</td>
                         <td><Link type="button" class="btn btn-outline-success" to="/discussion">Go</Link></td>
                     </tr>
 
@@ -31,7 +37,6 @@ export default function Table(props) {
 
             </tbody>
         </table>
-        <button type="button" class="btn btn-success">Create New Discussion</button>
         </div>
     )
 

@@ -17,6 +17,6 @@ public interface ActivityRepository extends CrudRepository<Activity, Integer> {
     public Optional<Activity> getActivity(@Param("id") int id);
     @Query(value = "SELECT  0 AS clazz_,activity_id,description, duration, category_category_id,status FROM activities ", nativeQuery = true)
     public List<Activity> getAllActivity();
-    @Query(value="Select  0 AS clazz_,activity_id,description, duration, category_category_id,status from activities where category_category_id in (select category_id from category where name = :name)", nativeQuery = true)
+    @Query(value="Select  0 AS clazz_,activity_id,description, duration, category_category_id,status from activities where category_category_id in (select category.category_id from category where name = :name)", nativeQuery = true)
     public List<Activity> getCategoryActivity(@Param("name") String name);
 }

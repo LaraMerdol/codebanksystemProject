@@ -1,16 +1,11 @@
-import React, { Component, useState,useEffect, error } from "react";
+import React, { Component, useState} from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
 export default function Footer() {
-  const [userType, setUsertype] = useState("");
 
-  useEffect(() => {
-    if(!error){
-      setUsertype("company")
-   }
-  })
+  const [userType,setUserType]=useState(localStorage.getItem("userType"));
+
   function setUserDiv() {
-
     switch (userType) {
       case "editor":
         return (         
@@ -39,7 +34,7 @@ export default function Footer() {
                 <NavbarToggle aria-controls="responsive-navbar-nav" />
                 <Nav className="bottom">
                   <Nav.Link href="/mainpage">Home </Nav.Link>
-                  <Nav.Link href="/searchpage">Search </Nav.Link>
+                  <Nav.Link href="/searchActivity">Search </Nav.Link>
                   <Nav.Link href="/discussionpage">Discussion </Nav.Link>
                   <Nav.Link href="/profilepage">Profile </Nav.Link>
                 </Nav>
