@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.interfaces.DSAParams;
 import java.util.List;
 import java.util.Optional;
 
@@ -117,5 +118,12 @@ public class DiscussionController {
                         "  \"reply_text\": \"" + "Sory there is no messeges" + "\"," +
                         "  \"user_id\": \"" +"ADMIN"+ "\"" +
                         "}]";
+    }
+
+    @RequestMapping(path="/getDiscussionsBySS")
+    @ResponseBody
+    public List<Discussion> getDiscussionsSS(@RequestParam String head) {
+        List<Discussion> discussions = disRepo.getDiscussionsBySubString(head);
+        return discussions;
     }
 }

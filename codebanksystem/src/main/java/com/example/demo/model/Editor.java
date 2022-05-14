@@ -1,18 +1,20 @@
 package com.example.demo.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
-public class Editor extends User{
+public class Editor{
+    @Id
+    String user_id;
     String name;
     String type;
     public Editor(String user_id, String password, String email, String name, String type) {
-        super(user_id, password, email);
+        this.user_id = user_id;
         this.name = name;
         this.type = type;
     }
     public Editor() {
-        super("--", "", "");
         this.name = "";
         this.type = "";
     }
