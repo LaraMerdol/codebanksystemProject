@@ -30,6 +30,14 @@ public class AccessController {
     @Autowired
     private EditorRepository editorRepository;
 
+    @GetMapping(path="/login")
+    public boolean login(@RequestParam String id, @RequestParam String pass){
+        if (userRepository.checkUser(id, pass) == 1)
+            return true;
+        else
+            return false;
+    }
+
     @GetMapping("/") 
     @ResponseBody
     public String home(){
@@ -45,6 +53,8 @@ public class AccessController {
     @PostMapping(path="/addCoder")
     public @ResponseBody Coder addCoder(@RequestParam String id, @RequestParam String password, @RequestParam String email, 
                             @RequestParam String phone, @RequestParam String name) {
+        if (userRepository.checkUser(id) >= 1)
+            return null;
         Coder coder = new Coder(id, password, email, phone, name);
         User user = new User(id, password, email);
         userRepository.save(user);
@@ -55,6 +65,8 @@ public class AccessController {
     public @ResponseBody Company addCompany (@RequestParam String id, @RequestParam String password, @RequestParam String email, 
                                             @RequestParam String name, @RequestParam int workerCount, @RequestParam int hiringStatus,
                                             @RequestParam int budget, @RequestParam int avgRate) {
+        if (userRepository.checkUser(id) >= 1)
+            return null;
         Company company = new Company(id, password, email, name, workerCount, hiringStatus, budget, avgRate);
         User user = new User(id, password, email);
         userRepository.save(user);
@@ -65,6 +77,9 @@ public class AccessController {
     @PostMapping(path="/addEditor")
     public @ResponseBody Editor addEditor(@RequestParam String id, @RequestParam String password, @RequestParam String email, 
                             @RequestParam String name, @RequestParam String type) {
+
+        if (userRepository.checkUser(id) >= 1)
+            return null;
         Editor editor = new Editor(id, password, email, name, type);
         User user = new User(id, password, email);
         userRepository.save(user);
