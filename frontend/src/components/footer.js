@@ -51,7 +51,7 @@ export default function Footer() {
                 <Nav className="bottom">
                   <Nav.Link href="/mainpage">Home </Nav.Link>
                   <Nav.Link href="/searchpage">Search </Nav.Link>
-                  <Nav.Link href="/InterviewPage">
+                  <Nav.Link href="/interviewResult">
                     Interview Results
                   </Nav.Link>
                   <Nav.Link href="/createInterview">Create Interview </Nav.Link>

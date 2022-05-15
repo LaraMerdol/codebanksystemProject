@@ -27,7 +27,7 @@ export default function CreateDiscussion() {
   const [text, setText] = useState("");
 
   const AddDiscussion = async () => {
-    let url ="/createDiscussion?discussion_id="+parseInt(discussion_id)+"&header="+header+"This is a discussion&text="+text+"&user_id='6'";
+    let url ="/createDiscussion?discussion_id="+parseInt(discussion_id)+"&header="+header+"This is a discussion&text="+text+"&user_id="+ localStorage.getItem("userId");
     alert(url)
     await axios.post(url).then(function (response) {
       alert(response.data);

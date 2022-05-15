@@ -17,7 +17,8 @@ import CreateDiscussion from "./components/createDiscussion";
 import CoderResult from "./components/coderResult";
 import SolveNonCoddingQuestion from "./components/answeNonCoddingQuestion";
 import NonCoddingResults from "./components/nonCoddingResult";
-
+import CreateInterview from "./components/createInterview";
+import InterviewResult from "./components/ınterviewResult";
 const rootElement = document.getElementById("root");
 render(
   <BrowserRouter>
@@ -38,6 +39,8 @@ render(
       <Route path="coderResult" element={<CoderResult/>} />
       <Route path="solveNonCoddingQuestion" element={<SolveNonCoddingQuestion/>} />
       <Route path="nonCoddingResults" element={<NonCoddingResults/>} />
+      <Route path="createInterview" element={<CreateInterview/>} />
+      <Route path="interviewResult" element={<InterviewResult/>} />
     </Routes>
   </BrowserRouter>,
   rootElement

@@ -27,7 +27,7 @@ export default function SolveNonCoddingQuestion() {
   const activity_duration = localStorage.getItem("activity_duration");
   const activity_text = localStorage.getItem("activity_text");
   const AddSolution = async () => {
-    let url ="/answerNonCoding?solution_id="+parseInt(solution_id)+"&activity_id="+parseInt(activity_id)+"&solution_text="+solution+"&user_id=5"
+    let url ="/answerNonCoding?solution_id="+parseInt(solution_id)+"&activity_id="+parseInt(activity_id)+"&solution_text="+solution+"&user_id="+localStorage.getItem("userId")
     axios.post(url);
   };
   

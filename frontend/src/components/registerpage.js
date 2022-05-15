@@ -4,6 +4,7 @@ import { Navbar, Nav, Container, NavbarBrand } from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
 export default function Register() {
   const [user, setUser] = useState(null);
+  
   const [id, setId] = useState("")
   const [password, setPassword] = useState("")
   const [email, setEmail] = useState("")
@@ -17,21 +18,21 @@ export default function Register() {
   const axios = require('axios')
 
   const AddCoder = async () => {
-        let url ="/addCoder?id="+id+"&password="+password+"&email="+email +"&phone="+phone +"&name=" + fullname
+        let url ="/addCoder?id="+id+"&password="+password.toString()+"&email="+email.toString() +"&phone="+phone +"&name=" + fullname
         alert(url)
         await axios.post(url).then(function (response) {
           console.log(response.data);
       })
   }
   const AddCompany = async () => {
-    let url ="/addCompany?id="+id+"&password="+password+"&email="+email  +"&name=" + fullname +"&workerCount=" + parseInt(workercount) +"&hiringStatus=" + parseInt(hiringStatus) +"&budget=" + parseInt(budget)+"&avgRate=" +0
+    let url ="/addCompany?id="+id+"&password="+password.toString()+"&email="+email.toString()  +"&name=" + fullname +"&workerCount=" + parseInt(workercount) +"&hiringStatus=" + parseInt(hiringStatus) +"&budget=" + parseInt(budget)+"&avgRate=" +0
     alert(url)
     await axios.post(url).then(function (response) {
       console.log(response.data);
   })
   } 
   const AddEditor = async () => {
-    let url ="/addEditor?id="+id+"&password="+password+"&email="+email  +"&name=" + fullname +"&type=" + type
+    let url ="/addEditor?id="+id+"&password="+password.toString()+"&email="+email.toString()  +"&name=" + fullname +"&type=" + type
     alert(url)
     await axios.post(url).then(function (response) {
       console.log(response.data);

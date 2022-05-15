@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.model.Coder;
@@ -32,7 +33,8 @@ public class AccessController {
     private EditorRepository editorRepository;
 
     @GetMapping(path="/login")
-    public boolean login(@RequestParam String id, @RequestParam String pass){
+    @ResponseBody
+    public Boolean login(@RequestParam String id, @RequestParam String pass){
         if (userRepository.checkUser(id, pass) == 1)
             return true;
         else

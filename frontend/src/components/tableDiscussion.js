@@ -27,6 +27,7 @@ export default function TableDiscussion(props) {
                         <td>{row.header}</td> 
                         <td>{row.user_id}</td>
                         <td>{row.text}</td>
+                        <td>
                         <Link
                   type="button"
                   class="btn btn-outline-success"
@@ -39,6 +40,7 @@ export default function TableDiscussion(props) {
                 >
                   Go
                 </Link>
+                </td>
                     </tr>
 
                 ))

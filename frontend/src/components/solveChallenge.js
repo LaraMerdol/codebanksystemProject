@@ -23,6 +23,7 @@ export default function SolveChallenge() {
     `function add(a, b) {\n  return a + b;\n}`
   );
   const [solution_id, setSolutionId] = useState("");
+  const [user_id, setUser] = useState(localStorage.getItem("userId"));
   const axios = require("axios");
   const activity_id = localStorage.getItem("activity_id");
   const [language, setLanguage] = useState("");
@@ -36,11 +37,11 @@ export default function SolveChallenge() {
       "&activity_id=" +
       parseInt(activity_id) +
       "&solution_text=" +
-      code +
+      code.toString() +
       "&solution_language=" +
       language +
       "&user_id=" +
-      "5";
+      user_id;
     let url2 =
       "/passAllTest?activity_id=" +
       parseInt(activity_id) +

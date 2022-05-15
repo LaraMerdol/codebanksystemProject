@@ -18,5 +18,7 @@ public interface DiscussionRepository extends CrudRepository<Discussion, Integer
     public List<Discussion> getDiscussions(@Param("head") String head);
 
     @Query(value="Select discussion_id, header, text, creator_user_id  from discussion where header like %:head%", nativeQuery = true)
-    public List<Discussion> getDiscussionsBySubString(@Param("head") String head);    
+    public List<Discussion> getDiscussionsBySubString(@Param("head") String head);
+    @Query(value="Select discussion_id, header, text, creator_user_id  from discussion", nativeQuery = true)
+    public List<Discussion> getAll();
 }

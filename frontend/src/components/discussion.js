@@ -35,7 +35,7 @@ onTitleChange = e => {
 };
 handleSubmit = e => {
   e.preventDefault();
-  axios.post("/createReply?discussion_id="+parseInt(this.state.discussion_id)+"&text="+ this.state.value +"&user_id='6'").then(function (response) {
+  axios.post("/createReply?discussion_id="+parseInt(this.state.discussion_id)+"&text="+ this.state.value +"&user_id="+localStorage.getItem("userId")).then(function (response) {
     console.log(response.data);
 })
 

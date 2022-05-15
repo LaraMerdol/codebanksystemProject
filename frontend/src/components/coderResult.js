@@ -24,7 +24,7 @@ export default class CoderResult extends Component {
 
   componentDidMount() {
     axios
-      .get("/getSolutionResultByCoderId?user_id=5&activity_id="+ localStorage.getItem("activity_id"))
+      .get("/getSolutionResultByCoderId?user_id="+localStorage.getItem("userId")+"&activity_id="+ localStorage.getItem("activity_id"))
       .then((res) => {
         console.log(typeof res.data);
         console.log(res.data);
@@ -54,13 +54,11 @@ export default class CoderResult extends Component {
           </Container>
         </Navbar>
         <br></br>
-        <table class="table">
+        <table align="center" class="table" style={{marginTop:"40px", width: "70%" }}>
           <thead>
             <tr>
+            <th>Solution ID </th>
               <th>Test ID</th>
-              <th>Solution ID </th>
-              <th>Coder Name </th>
-              <th>Challenge ID </th>
               <th>Pass</th>
 
             </tr>
@@ -69,10 +67,8 @@ export default class CoderResult extends Component {
           
           {this.state.list.map(row => (
             <tr>
+              <td >{row.solution_id}</td>
                 <td >{row.test_id}</td>
-                <td >{row.solution_id}</td>
-                <td >{row.coder_name}</td>
-                <td >{row.challenge_id}</td>
                 <td>{row.pass}</td>
             </tr>
             ))}
