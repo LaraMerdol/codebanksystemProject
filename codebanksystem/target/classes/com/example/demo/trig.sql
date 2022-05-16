@@ -1,0 +1,2 @@
+create trigger remove after delete on user for each row delete from interview where interview_id in
+    (select R.id from participant as R where R.participant not in (select user_id from user) or R.creator not in (select user_id from user) )
