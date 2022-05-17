@@ -38,92 +38,101 @@ public class ActivityController {
     @Autowired
     private SolveNonCoddingRepository solveNonCoddingRepository;
 
-    @PostMapping(path="/addCoddingChallenge")
-    public @ResponseBody CoddingChallenge addCoddingChallenge(@RequestParam int activity_id,@RequestParam int category_id, @RequestParam String description, @RequestParam String status,
-                                        @RequestParam int duration, @RequestParam String level, @RequestParam String codding_language ) {
+    @PostMapping(path = "/addCoddingChallenge")
+    public @ResponseBody
+    CoddingChallenge addCoddingChallenge(@RequestParam int activity_id, @RequestParam int category_id, @RequestParam String description, @RequestParam String status,
+                                         @RequestParam int duration, @RequestParam String level, @RequestParam String codding_language) {
         Optional<Category> category = categoryRepository.findById(category_id);
         if (category.isEmpty())
             return null;
         System.out.println("Come on!");
-        CoddingChallenge coddingChallenge = new CoddingChallenge(activity_id ,category.get(), description, status,duration, level,codding_language);
-        Activity activity = new Activity(activity_id+1 , category.get(), description, status,duration);
+        CoddingChallenge coddingChallenge = new CoddingChallenge(activity_id, category.get(), description, status, duration, level, codding_language);
+        Activity activity = new Activity(activity_id + 1, category.get(), description, status, duration);
         activityRepository.save(activity);
         System.out.print("Added CoddingChallenge");
         return coddingChallengeRepository.save(coddingChallenge);
     }
-    @PostMapping(path="/addNonCodingQuestion")
-    public @ResponseBody NonCodingQuestion addNonCodingQuestion(@RequestParam int activity_id,@RequestParam int category_id, @RequestParam String description, @RequestParam String status,
-                                                              @RequestParam int duration, @RequestParam String question_text ) {
+
+    @PostMapping(path = "/addNonCodingQuestion")
+    public @ResponseBody
+    NonCodingQuestion addNonCodingQuestion(@RequestParam int activity_id, @RequestParam int category_id, @RequestParam String description, @RequestParam String status,
+                                           @RequestParam int duration, @RequestParam String question_text) {
         Optional<Category> category = categoryRepository.findById(category_id);
         if (category.isEmpty())
             return null;
         System.out.println("Come on!");
-        NonCodingQuestion nonCodingQuestion = new NonCodingQuestion(activity_id, category.get(), description, status,duration, question_text );
-        Activity activity = new Activity(activity_id+1, category.get(), description, status,duration);
+        NonCodingQuestion nonCodingQuestion = new NonCodingQuestion(activity_id, category.get(), description, status, duration, question_text);
+        Activity activity = new Activity(activity_id + 1, category.get(), description, status, duration);
         activityRepository.save(activity);
         System.out.print("Added Non Codding Question");
         return nonCodingQuestionRepository.save(nonCodingQuestion);
     }
-    @PostMapping(path="/addCategory")
-    public @ResponseBody Category addCategory(@RequestParam String name ) {
+
+    @PostMapping(path = "/addCategory")
+    public @ResponseBody
+    Category addCategory(@RequestParam String name) {
         System.out.print("Come Here");
         Category category = new Category(name);
         System.out.print("Added CoddingChallenge");
         return categoryRepository.save(category);
     }
 
-    @PostMapping(path="/addTestCase")
+    @PostMapping(path = "/addTestCase")
     @ResponseBody
-    public TestCase addTestCase( @RequestParam String test_code , @RequestParam int activity_id) {
+    public TestCase addTestCase(@RequestParam String test_code, @RequestParam int activity_id) {
         Optional<CoddingChallenge> challenge = coddingChallengeRepository.findById(activity_id);
         if (challenge.isEmpty())
             return null;
         System.out.print("Added TestCase");
-        return testCaseRepository.save(new TestCase(test_code,challenge.get()));
+        return testCaseRepository.save(new TestCase(test_code, challenge.get()));
     }
-    @PostMapping(path="/addContest")
-    public @ResponseBody CoddingContest addContest (@RequestParam int contest_id, @RequestParam String name, @RequestParam int duration, @RequestParam String startDate,
-                                                                @RequestParam String endDate) {
+
+    @PostMapping(path = "/addContest")
+    public @ResponseBody
+    CoddingContest addContest(@RequestParam int contest_id, @RequestParam String name, @RequestParam int duration, @RequestParam String startDate,
+                              @RequestParam String endDate) {
 
         LocalDate startDate1 = localDateConverterRepository.convert(startDate);
-        LocalDate endDate1 =  localDateConverterRepository.convert(endDate);
-        CoddingContest coddingContest = new CoddingContest(contest_id, name, duration, startDate1,endDate1);
+        LocalDate endDate1 = localDateConverterRepository.convert(endDate);
+        CoddingContest coddingContest = new CoddingContest(contest_id, name, duration, startDate1, endDate1);
         System.out.print("Added Contest");
         return coddingContestRepository.save(coddingContest);
     }
 
-    @PostMapping(path="/addChallengeToTheContest")
-    public @ResponseBody boolean addChallengeToTheContest (@RequestParam int contest_id,@RequestParam int activity_id ) {
+    @PostMapping(path = "/addChallengeToTheContest")
+    public @ResponseBody
+    boolean addChallengeToTheContest(@RequestParam int contest_id, @RequestParam int activity_id) {
 
         Optional<CoddingChallenge> challenge = coddingChallengeRepository.findById(activity_id);
         Optional<CoddingContest> contest = coddingContestRepository.findById(contest_id);
-        if (challenge.isEmpty() || contest.isEmpty() ){
+        if (challenge.isEmpty() || contest.isEmpty()) {
             return false;
         }
         System.out.print("Added Challenge To Contest");
         contest.get().getCoddingChallenges().add(challenge.get());
         coddingContestRepository.save(contest.get());
-        return true ;
+        return true;
     }
 
 
-    @PostMapping(path="/answerChallenge")
+    @PostMapping(path = "/answerChallenge")
     @ResponseBody
-    public SolutionToChallenge answerChallenge(@RequestParam int solution_id,@RequestParam int activity_id, @RequestParam String solution_text,@RequestParam String solution_language, @RequestParam String user_id) {
+    public SolutionToChallenge answerChallenge(@RequestParam int solution_id, @RequestParam int activity_id, @RequestParam String solution_text, @RequestParam String solution_language, @RequestParam String user_id) {
         Optional<Coder> coder = coderRepository.getCoder(user_id);
         Optional<CoddingChallenge> challenge = coddingChallengeRepository.getCoddingChallenge(activity_id);
-        if (coder.isEmpty() || challenge.isEmpty()){
+        if (coder.isEmpty() || challenge.isEmpty()) {
             System.out.print("Cannot found the objects");
             return null;
         }
-        return solutionToChallengeRepository.save(new SolutionToChallenge(solution_id, challenge.get(), solution_text, solution_language , coder.get()));
+        return solutionToChallengeRepository.save(new SolutionToChallenge(solution_id, challenge.get(), solution_text, solution_language, coder.get()));
     }
-    @PostMapping(path="/answerNonCoding")
+
+    @PostMapping(path = "/answerNonCoding")
     @ResponseBody
-    public SolveNonCodding answerNonCoding(@RequestParam int solution_id,@RequestParam int activity_id, @RequestParam String solution_text, @RequestParam String user_id) {
+    public SolveNonCodding answerNonCoding(@RequestParam int solution_id, @RequestParam int activity_id, @RequestParam String solution_text, @RequestParam String user_id) {
         Optional<Coder> coder = coderRepository.getCoder(user_id);
         Optional<NonCodingQuestion> question = nonCodingQuestionRepository.getNonCodingQuestion(activity_id);
-        if (coder.isEmpty() || question.isEmpty()){
+        if (coder.isEmpty() || question.isEmpty()) {
             System.out.print("Cannot found the objects");
             return null;
         }
@@ -131,19 +140,19 @@ public class ActivityController {
     }
 
 
-
-    @PostMapping(path="/passAllTest")
+    @PostMapping(path = "/passAllTest")
     @ResponseBody
-    public void passAllTest( @RequestParam int activity_id, @RequestParam int solution_id) {
+    public void passAllTest(@RequestParam int activity_id, @RequestParam int solution_id) {
         List<TestCase> tests = testCaseRepository.getTestOfChallenge(activity_id);
-        if(tests.size()>0){
-            for(int i = 0;i< tests.size();i++){
-                int test_id =  tests.get(i).getTest_id();
-                passTest(test_id,solution_id);
+        if (tests.size() > 0) {
+            for (int i = 0; i < tests.size(); i++) {
+                int test_id = tests.get(i).getTest_id();
+                passTest(test_id, solution_id);
             }
         }
     }
-    @PostMapping(path="/passTest")
+
+    @PostMapping(path = "/passTest")
     @ResponseBody
     public Pass passTest(@RequestParam int test_id, @RequestParam int solution_id) {
         Optional<TestCase> test = testCaseRepository.findById(test_id);
@@ -151,146 +160,153 @@ public class ActivityController {
         if (test.isEmpty() || solution.isEmpty())
             return null;
         Random random = new Random();
-        Boolean isPass =random.nextBoolean();
-        Pass pass = new Pass(test.get(),solution.get(),isPass);
+        Boolean isPass = random.nextBoolean();
+        Pass pass = new Pass(test.get(), solution.get(), isPass);
         return passRepository.save(pass);
     }
 
 
-    @GetMapping(path="/getActivity")
+    @GetMapping(path = "/getActivity")
     @ResponseBody
-    public String getActivity (@RequestParam int id) {
+    public String getActivity(@RequestParam int id) {
         Optional<Activity> activity = activityRepository.getActivity(id);
         if (activity.isEmpty())
-            return  null;
+            return null;
 
         return activity.get().toString();
     }
 
-    @GetMapping(path="/getActivityForCategory")
+    @GetMapping(path = "/getActivityForCategory")
     @ResponseBody
-    public String getActivityForCategory (@RequestParam String name) {
-        if(name.equals("All")){
+    public String getActivityForCategory(@RequestParam String name) {
+        if (name.equals("All")) {
             List<Activity> activities = activityRepository.getAllActivity();
-            String listActivity = "["+activities.get(0).toString();
-            for(int i=1;i<activities.size();i++){
-                listActivity=listActivity+","+activities.get(i).toString();
+            String listActivity = "[" + activities.get(0).toString();
+            for (int i = 1; i < activities.size(); i++) {
+                listActivity = listActivity + "," + activities.get(i).toString();
             }
             return listActivity + "]";
         }
-        List<Activity> activities = activityRepository.getCategoryActivity(name);
-        String listActivity =  "["+activities.get(0).toString();
-        for(int i=1;i<activities.size();i++){
-            listActivity=listActivity+","+activities.get(i).toString();
+        List<Activity> activities = activityRepository.getActivityBySubString(name);
+        String listActivity = "[" + activities.get(0).toString();
+        for (int i = 1; i < activities.size(); i++) {
+            listActivity = listActivity + "," + activities.get(i).toString();
         }
         return listActivity + "]";
     }
-    @GetMapping(path="/getChallengesForCategory")
+
+    @GetMapping(path = "/getChallengesForCategory")
     @ResponseBody
-    public String getChallengesForCategory (@RequestParam String name) {
-        if(name.equals("All")){
+    public String getChallengesForCategory(@RequestParam String name) {
+        if (name.equals("All")) {
             List<CoddingChallenge> activities = coddingChallengeRepository.getAllActivity();
-            if(activities.size()>0){
-                String listActivity = "["+activities.get(0).toString();
-                if(activities.size()>1){
-                    for(int i=1;i<activities.size();i++){
-                        listActivity=listActivity+","+activities.get(i).toString();
+            if (activities.size() > 0) {
+                String listActivity = "[" + activities.get(0).toString();
+                if (activities.size() > 1) {
+                    for (int i = 1; i < activities.size(); i++) {
+                        listActivity = listActivity + "," + activities.get(i).toString();
                     }
                 }
                 return listActivity + "]";
-            }
-            else{
+            } else {
                 return "";
             }
         }
-        List<CoddingChallenge> activities = coddingChallengeRepository.getCategoryActivity(name);
-        if(activities.size()>0){
-            String listActivity = "["+activities.get(0).toString();
-            if(activities.size()>1){
-                for(int i=1;i<activities.size();i++){
-                    listActivity=listActivity+","+activities.get(i).toString();
+        List<CoddingChallenge> activities = coddingChallengeRepository.getChallengeBySubString(name);
+        if (activities.size() > 0) {
+            String listActivity = "[" + activities.get(0).toString();
+            if (activities.size() > 1) {
+                for (int i = 1; i < activities.size(); i++) {
+                    listActivity = listActivity + "," + activities.get(i).toString();
                 }
             }
             return listActivity + "]";
-        }
-        else{
+        } else {
             return "";
         }
     }
-    @GetMapping(path="/getNonCodingsForCategory")
+
+    @GetMapping(path = "/getNonCodingsForCategory")
     @ResponseBody
-    public String getNonCodingsForCategory (@RequestParam String name) {
-        if(name.equals("All")){
+    public String getNonCodingsForCategory(@RequestParam String name) {
+        if (name.equals("All")) {
             List<NonCodingQuestion> activities = nonCodingQuestionRepository.getAllActivity();
-            if(activities.size()>0){
-                String listActivity = "["+activities.get(0).toString();
-                if(activities.size()>1){
-                    for(int i=1;i<activities.size();i++){
-                        listActivity=listActivity+","+activities.get(i).toString();
+            if (activities.size() > 0) {
+                String listActivity = "[" + activities.get(0).toString();
+                if (activities.size() > 1) {
+                    for (int i = 1; i < activities.size(); i++) {
+                        listActivity = listActivity + "," + activities.get(i).toString();
                     }
                 }
                 return listActivity + "]";
-            }
-            else{
+            } else {
                 return "";
             }
 
         }
-        List<NonCodingQuestion> activities = nonCodingQuestionRepository.getCategoryActivity(name);
+        List<NonCodingQuestion> activities = nonCodingQuestionRepository.getNonCoddingBySubString(name);
         String listActivity;
-        if(activities.size()>0){
-            listActivity = "["+activities.get(0).toString();
-            if(activities.size()>1){
-                for(int i=1;i<activities.size();i++){
-                    listActivity=listActivity+","+activities.get(i).toString();
+        if (activities.size() > 0) {
+            listActivity = "[" + activities.get(0).toString();
+            if (activities.size() > 1) {
+                for (int i = 1; i < activities.size(); i++) {
+                    listActivity = listActivity + "," + activities.get(i).toString();
                 }
             }
             return listActivity + "]";
-        }
-        else{
+        } else {
             return "";
         }
 
     }
-    @GetMapping(path="/getSolutionResultByCoderId")
+
+    @GetMapping(path = "/getSolutionResultByCoderId")
     @ResponseBody
-    public String getSolutionResultByCoderId (@RequestParam String user_id, @RequestParam int activity_id ) {
-        if(activity_id == 0){
+    public String getSolutionResultByCoderId(@RequestParam String user_id, @RequestParam int activity_id) {
+        if (activity_id == 0) {
             List<Pass> pass = passRepository.getAllPassForCoder(user_id);
-            String passList = "["+pass.get(0).toString();
-            for(int i=1;i<pass.size();i++){
-                passList=passList+","+pass.get(i).toString();
+            String passList = "[" + pass.get(0).toString();
+            for (int i = 1; i < pass.size(); i++) {
+                passList = passList + "," + pass.get(i).toString();
             }
             return passList + "]";
         }
-        List<Pass> pass = passRepository.getPassForChallengeCoder(user_id,activity_id);
-        String passList = "["+pass.get(0).toString();
-        for(int i=1;i<pass.size();i++){
-            passList=passList+","+pass.get(i).toString();
+        List<Pass> pass = passRepository.getPassForChallengeCoder(user_id, activity_id);
+        String passList = "[" + pass.get(0).toString();
+        for (int i = 1; i < pass.size(); i++) {
+            passList = passList + "," + pass.get(i).toString();
         }
         return passList + "]";
     }
-    @GetMapping(path="/getSolutionResultByActivityId")
+
+    @GetMapping(path = "/getSolutionResultByActivityId")
     @ResponseBody
-    public String getSolutionResultByActivityId ( @RequestParam int activity_id) {
+    public String getSolutionResultByActivityId(@RequestParam int activity_id) {
 
         List<Pass> pass = passRepository.getPassForChallenge(activity_id);
-        String passList = "["+pass.get(0).toString();
-        for(int i=1;i<pass.size();i++){
-            passList=passList+","+pass.get(i).toString();
+        String passList = "[" + pass.get(0).toString();
+        for (int i = 1; i < pass.size(); i++) {
+            passList = passList + "," + pass.get(i).toString();
         }
         return passList + "]";
     }
-    @GetMapping(path="/getAnswerForNonCodding")
+
+    @GetMapping(path = "/getAnswerForNonCodding")
     @ResponseBody
-    public String getAnswerForNonCodding ( @RequestParam int activity_id) {
+    public String getAnswerForNonCodding(@RequestParam int activity_id) {
 
         List<SolveNonCodding> answers = solveNonCoddingRepository.getAll(activity_id);
-        String aswList = "["+answers.get(0).toString();
-        for(int i=1;i<answers.size();i++){
-            aswList=aswList+","+answers.get(i).toString();
+        String aswList = "[" + answers.get(0).toString();
+        for (int i = 1; i < answers.size(); i++) {
+            aswList = aswList + "," + answers.get(i).toString();
         }
         return aswList + "]";
     }
 
+    @RequestMapping(path = "/getContestByDate")
+    @ResponseBody
+    public List<CoddingContest> getContestByDate(@RequestParam String start, @RequestParam String end) {
+        List<CoddingContest> contests = coddingContestRepository.getContestByDate(start, end);
+        return contests;
+    }
 }

@@ -18,5 +18,7 @@ public interface CoddingChallengeRepository extends CrudRepository<CoddingChalle
     public List<CoddingChallenge> getCategoryActivity(@Param("name") String name);
     @Query(value="SELECT  0 AS clazz_, activity_id, description, duration, category_category_id,status,codding_language,level from codding_challenges", nativeQuery = true)
     public List<CoddingChallenge> getAllActivity();
+    @Query(value="SELECT  0 AS clazz_, activity_id, description, duration, category_category_id,status,codding_language, level from codding_challenges where category_category_id in (select category.category_id from category where name like %:name%)", nativeQuery = true)
+    public List<CoddingChallenge> getChallengeBySubString(@Param("name") String name);
 }
 

@@ -1,8 +1,5 @@
 package com.example.demo.repo;
-import com.example.demo.model.Activity;
-import com.example.demo.model.Discussion;
-import com.example.demo.model.Reply;
-import com.example.demo.model.User;
+import com.example.demo.model.*;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +16,6 @@ public interface ActivityRepository extends CrudRepository<Activity, Integer> {
     public List<Activity> getAllActivity();
     @Query(value="Select  0 AS clazz_,activity_id,description, duration, category_category_id,status from activities where category_category_id in (select category.category_id from category where name = :name)", nativeQuery = true)
     public List<Activity> getCategoryActivity(@Param("name") String name);
+    @Query(value="SELECT  0 AS clazz_, activity_id, description, duration, category_category_id,status from activities where category_category_id in (select category.category_id from category where name  like %:name%)", nativeQuery = true)
+    public List<Activity> getActivityBySubString(@Param("name") String name);
 }
