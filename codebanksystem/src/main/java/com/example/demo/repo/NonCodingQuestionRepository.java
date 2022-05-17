@@ -1,4 +1,5 @@
 package com.example.demo.repo;
+import com.example.demo.model.Activity;
 import com.example.demo.model.CoddingChallenge;
 import com.example.demo.model.NonCodingQuestion;
 
@@ -16,4 +17,6 @@ public interface NonCodingQuestionRepository extends CrudRepository <NonCodingQu
     public List<NonCodingQuestion> getCategoryActivity(@Param("name") String name);
     @Query(value="SELECT  0 AS clazz_,activity_id,description, duration, category_category_id,status,question_text from non_coding_questions", nativeQuery = true)
     public List<NonCodingQuestion> getAllActivity();
+    @Query(value="SELECT  0 AS clazz_, activity_id, description, duration, category_category_id,status,question_text from non_coding_questions where category_category_id in (select category.category_id from category where name like %:name%)", nativeQuery = true)
+    public List<NonCodingQuestion> getNonCoddingBySubString(@Param("name") String name);
 }

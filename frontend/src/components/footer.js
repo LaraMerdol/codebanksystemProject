@@ -20,6 +20,7 @@ export default function Footer() {
                   Create New Activity{" "}
                 </Nav.Link>
                 <Nav.Link href="/createcontest">Create Contest </Nav.Link>
+                <Nav.Link href="/searchContest">Search Contest </Nav.Link>
                 <Nav.Link href="/discussionpage">Discussion </Nav.Link>
               </Nav>
             </Container>
@@ -35,6 +36,7 @@ export default function Footer() {
                 <Nav className="bottom">
                   <Nav.Link href="/mainpage">Home </Nav.Link>
                   <Nav.Link href="/searchActivity">Search </Nav.Link>
+                  <Nav.Link href="/searchContest">Search Contest </Nav.Link>
                   <Nav.Link href="/discussionpage">Discussion </Nav.Link>
                   <Nav.Link href="/profilepage">Profile </Nav.Link>
                 </Nav>
@@ -51,6 +53,7 @@ export default function Footer() {
                 <Nav className="bottom">
                   <Nav.Link href="/mainpage">Home </Nav.Link>
                   <Nav.Link href="/searchpage">Search </Nav.Link>
+                  <Nav.Link href="/searchContest">Search Contest </Nav.Link>
                   <Nav.Link href="/interviewResult">
                     Interview Results
                   </Nav.Link>

@@ -19,6 +19,7 @@ import SolveNonCoddingQuestion from "./components/answeNonCoddingQuestion";
 import NonCoddingResults from "./components/nonCoddingResult";
 import CreateInterview from "./components/createInterview";
 import InterviewResult from "./components/ınterviewResult";
+import SearchContest from "./components/tableContest";
 const rootElement = document.getElementById("root");
 render(
   <BrowserRouter>
@@ -41,6 +42,7 @@ render(
       <Route path="nonCoddingResults" element={<NonCoddingResults/>} />
       <Route path="createInterview" element={<CreateInterview/>} />
       <Route path="interviewResult" element={<InterviewResult/>} />
+      <Route path="searchContest" element={<SearchContest/>} />
     </Routes>
   </BrowserRouter>,
   rootElement
