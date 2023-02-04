@@ -1,11 +1,13 @@
 name: Repo Sync
 
+name: Repo Sync
+
 on:
   push:
     branches:
       - master
   schedule:
-    - cron: */5 * * * *
+    - cron: 0 0 * * *
 
 jobs:
   repo_sync:
@@ -17,5 +19,5 @@ jobs:
         uses: kbrashears5/github-action-repo-sync@v1.0.0
         with:
           TYPE: npm
-          PATH: package.json
-          TOKEN: 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
+          PATH: metadata.json
+          TOKEN: ${{ secrets.ACTIONS }}
