@@ -1,0 +1,21 @@
+name: Repo Sync
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  repo_sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetching Local Repository
+        uses: actions/checkout@master
+      - name: Repo Sync
+        uses: kbrashears5/github-action-repo-sync@v1.0.0
+        with:
+          TYPE: npm
+          PATH: package.json
+          TOKEN: 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
