@@ -1,7 +1,5 @@
 name: Repo Sync
 
-name: Repo Sync
-
 on:
   push:
     branches:
