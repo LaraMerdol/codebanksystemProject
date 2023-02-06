@@ -5,9 +5,6 @@ on:
     types: [created]
     paths:
       - .github/workflows/flat.yml
-  workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *'
 
 jobs:
   scheduled:
