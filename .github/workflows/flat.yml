@@ -21,8 +21,8 @@ jobs:
       - name: Flat Graph
         uses: johnymontana/flat-graph@v1.2
         with:
-          http_url: 'https://api.github.com/repos/sandreas/m4b-tool/commits?since=2018-01-01T00:00:00Z&page=1'
-          downloaded_filename: 'data.json'
+          http_url: https://api.github.com/repos/sandreas/m4b-tool/commits?since=2018-01-01T00:00:00Z&page=1
+          downloaded_filename: data.json
       - name: Neo4j import
         uses: johnymontana/flat-graph@v1.1
         with:
