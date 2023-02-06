@@ -21,15 +21,15 @@ jobs:
       - name: Flat Graph
         uses: johnymontana/flat-graph@v1.2
         with:
-          http_url: https://api.github.com/repos/sandreas/m4b-tool/commits?since=2018-01-01T00:00:00Z&page=1
-          downloaded_filename: metadata.json
+          http_url: 'https://api.github.com/repos/sandreas/m4b-tool/commits?since=2018-01-01T00:00:00Z&page=1'
+          downloaded_filename: 'data.json'
       - name: Neo4j import
         uses: johnymontana/flat-graph@v1.1
         with:
           neo4j-user: "neo4j"
           neo4j-password: "volumes-administrator-lists"
           neo4j-uri: "bolt://35.175.123.244:7687"
-          filename: 'metadata.json'
+          filename: 'data.json'
           cypher-query: >
               UNWIND $value AS commits
               MERGE (u:User {username: commits.commit.author.name})
