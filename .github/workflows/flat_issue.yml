@@ -32,8 +32,5 @@ jobs:
           neo4j-uri: "bolt://35.175.123.244:7687"
           filename: 'data.json'
           cypher-query: >
-              UNWIND $value AS commits
-              MERGE (u:Developer {username: commits.commit.author.name})
-              MERGE (a:Commit {id: commits.sha})
-              SET a.messege = commits.commit.message
-              MERGE (u)<-[:COMMIT]-(a)
+              UNWIND $value AS issues
+              MERGE (u:Issue {id: issues.id})
