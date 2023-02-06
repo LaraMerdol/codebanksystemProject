@@ -1,21 +1,37 @@
-name: Repo Sync
+name: Flat Graph for Neo4j
 
 on:
   push:
-    branches:
-      - master
+    paths:
+      - .github/workflows/flat.yml
+  workflow_dispatch:
   schedule:
-    - cron: 0 0 * * *
+    - cron: '*/5 * * * *'
 
 jobs:
-  repo_sync:
+  scheduled:
     runs-on: ubuntu-latest
     steps:
-      - name: Fetching Local Repository
-        uses: actions/checkout@master
-      - name: Repo Sync
-        uses: kbrashears5/github-action-repo-sync@v1.0.0
+      - name: Check out repo
+        uses: actions/checkout@v2
+      - name: Setup deno
+        uses: denoland/setup-deno@main
         with:
-          TYPE: npm
-          PATH: metadata.json
-          TOKEN: ${{ secrets.ACTIONS }}
+          deno-version: v1.x
+      - name: Fetch newest 
+        uses: githubocto/flat@v2
+        with:
+          http_url: https://api.github.com/repos/sandreas/m4b-tool/commits?since=2018-01-01T00:00:00Z&page=1
+          downloaded_filename: metadata.json
+      - name: Neo4j import
+        uses: johnymontana/flat-graph@v1.1
+        with:
+          neo4j-user: "neo4j"
+          neo4j-password: "volumes-administrator-lists"
+          neo4j-uri: "bolt://35.175.123.244:7687"
+          filename: 'metadata.json'
+          cypher-query: >
+              UNWIND $value AS commits
+              MERGE (u:User {username: commits.commit.author.name})
+              MERGE (a:Commit {id: commits.sha})
+              SET a.messege = commits.commit.message
