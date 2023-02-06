@@ -32,6 +32,7 @@ jobs:
           filename: 'data.json'
           cypher-query: >
               UNWIND $value AS commits
-              MERGE (u:User {username: commits.commit.author.name})
+              MERGE (u:Developer {username: commits.commit.author.name})
               MERGE (a:Commit {id: commits.sha})
               SET a.messege = commits.commit.message
+              MERGE (u)<-[:COMMIT]-(a)
