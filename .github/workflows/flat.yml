@@ -1,4 +1,4 @@
-name: Flat Graph for Neo4j
+name: Flat Graph for Neo4j Commit
 
 on:
   push:
