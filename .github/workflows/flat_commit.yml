@@ -3,7 +3,7 @@ name: Flat Graph for Neo4j Commit
 on:
   push:
     paths:
-      - .github/workflows/flat.yml
+      - .github/workflows/flat_commit.yml
 
 jobs:
   scheduled:
