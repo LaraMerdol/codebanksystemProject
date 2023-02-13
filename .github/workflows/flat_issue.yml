@@ -18,8 +18,8 @@ jobs:
         uses: denoland/setup-deno@main
         with:
           deno-version: v1.x
-      - name: Fetch newest 
-        uses: githubocto/flat@v2
+      - name: Fetch data
+        uses: githubocto/flat@v3
         with:
           http_url: https://saanalyzer.atlassian.net/rest/api/3/search    
           authorization: "Basic bGFyYS5tZXJkb2xAdWcuYmlsa2VudC5lZHUudHI6QVRBVFQzeEZmR0YwNUNmbGJEdWViNkJGbldtZkFyVFJ2Nmg4T3dZMDhfRV94TUxVdkhxZWlGaDRZVGZwV3RmMUNNTFM0TEFTempWYkRlNXlaT1pOek9Cdkh1QTMzdGF0RVF2bG1jRWstU1QxVHpXVklwd3VkOXZLY0ZrVzVGOXNORVUtRG14aW52d0RRMEYxdFhlUkoyNkxmSC1nV2xYdU56VzZLM3d5SHFvbm12eVgyclg2bjI4PUY4REQ1RjA1"
