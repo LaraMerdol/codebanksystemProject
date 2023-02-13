@@ -1,10 +1,12 @@
 name: Flat Graph for Neo4j
 
 on:
-  issues:
-    types: [created]
+  push:
     paths:
-      - .github/workflows/flat_issue.yml
+      - .github/workflows/flat.yml
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
 
 jobs:
   scheduled:
@@ -19,15 +21,15 @@ jobs:
       - name: Fetch newest 
         uses: githubocto/flat@v2
         with:
-          http_url: https://api.github.com/repos/LaraMerdol/codebanksystemProject/issues?since=2018-01-01T00:00:00Z&page=1
+          http_url: https://saanalyzer.atlassian.net/rest/api/3/search
           downloaded_filename: data_issue.json
       - name: Neo4j import
         uses: johnymontana/flat-graph@v1.1
         with:
           neo4j-user: "neo4j"
-          neo4j-password: "volumes-administrator-lists"
-          neo4j-uri: "bolt://35.175.123.244:7687"
+          neo4j-password: "j1PA3Wsb-4qiXXFlvK6Z8KqvN4u_rNKsVq1klclx8Yw"
+          neo4j-uri: "neo4j+s://4b078297.databases.neo4j.io:7687"
           filename: 'data_issue.json'
           cypher-query: >
-              UNWIND $value AS issues
+              UNWIND $value.issues AS issues
               MERGE (u:Issue {id: issues.id})
