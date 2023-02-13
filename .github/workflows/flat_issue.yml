@@ -22,6 +22,7 @@ jobs:
         uses: githubocto/flat@v2
         with:
           http_url: https://saanalyzer.atlassian.net/rest/api/3/search
+          Authorization: "Basic bGFyYS5tZXJkb2xAdWcuYmlsa2VudC5lZHUudHI6QVRBVFQzeEZmR0YwNUNmbGJEdWViNkJGbldtZkFyVFJ2Nmg4T3dZMDhfRV94TUxVdkhxZWlGaDRZVGZwV3RmMUNNTFM0TEFTempWYkRlNXlaT1pOek9Cdkh1QTMzdGF0RVF2bG1jRWstU1QxVHpXVklwd3VkOXZLY0ZrVzVGOXNORVUtRG14aW52d0RRMEYxdFhlUkoyNkxmSC1nV2xYdU56VzZLM3d5SHFvbm12eVgyclg2bjI4PUY4REQ1RjA1"
           downloaded_filename: data_issue.json
       - name: Neo4j import
         uses: johnymontana/flat-graph@v1.1
