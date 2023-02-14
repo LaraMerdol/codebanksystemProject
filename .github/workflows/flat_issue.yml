@@ -33,4 +33,5 @@ jobs:
           filename: 'data_issue.json'
           cypher-query: >
               UNWIND $value.issues AS issues
-              MERGE (u:Issue {id: issues.id})
+              MERGE (u:Issue {id: issues.key})
+              SET u.id = issue.id
